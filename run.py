@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import subprocess
 
 # Prompt user for input
 email = input("请输入您的电子邮件地址：")
@@ -61,13 +62,7 @@ if input("是否编译 Caddy 镜像？(y/n)").lower() == "y":
 # Prompt user to run Caddy container
 if input("是否运行 Caddy 容器？(y/n) ").lower() == "y":
     os.system("sudo podman rm -f caddy")
-    cmd = """
-    sudo podman run -d --name caddy \
-    -v $PWD/Caddyfile:/etc/caddy/Caddyfile:Z \
-    -v caddy_data:/data \
-    -v caddy_conf:/config \
-    -p 80:80 \
-    -p 443:443 \
-    naive/caddy
-    """
-    os.system(cmd)
+    subprocess.run(["sudo", "podman", "run", "-d", "--name", "caddy", 
+        "-v", f"{os.getcwd()}/Caddyfile:/etc/caddy/Caddyfile:Z", "-v", 
+        "caddy_data:/data", "-v", "caddy_conf:/config", "-p", "80:80", 
+        "-p", "443:443", "naive/caddy"])
