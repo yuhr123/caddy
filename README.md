@@ -26,7 +26,7 @@ curl -LO https://raw.githubusercontent.com/yuhr123/caddy/main/run.py
 4. Running the script
 
 ```shell
-python run.py
+sudo python3 run.py
 ```
 
 The scirpt will build a custom caddy image and create a container with it, and then create a systemd serivce for that container.
